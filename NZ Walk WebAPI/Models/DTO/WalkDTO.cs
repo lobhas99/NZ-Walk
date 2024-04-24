@@ -1,6 +1,4 @@
-﻿using NZ_Walk_WebAPI.Models.Domain_Models;
-
-namespace NZ_Walk_WebAPI.Models.DTO
+﻿namespace NZ_Walk_WebAPI.Models.DTO
 {
     public class WalkDTO
     {

@@ -1,4 +1,4 @@
-﻿using NZ_Walk_WebAPI.Models.Domain_Models;
+﻿using NZ_Walk_WebAPI.Models.Domain;
 
 namespace NZ_Walk_WebAPI.Repository
 {
@@ -10,7 +10,7 @@ namespace NZ_Walk_WebAPI.Repository
 
         Task<Region> CreateAsync(Region region);
 
-        Task<Region?> UpdateAsync(Guid id,Region region);
+        Task<Region?> UpdateAsync(Guid id, Region region);
 
         Task<Region?> DeleteAsync(Guid id);
 

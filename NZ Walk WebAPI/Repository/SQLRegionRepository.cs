@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZ_Walk_WebAPI.Data;
-using NZ_Walk_WebAPI.Models.Domain_Models;
+using NZ_Walk_WebAPI.Models.Domain;
 
 namespace NZ_Walk_WebAPI.Repository
 {

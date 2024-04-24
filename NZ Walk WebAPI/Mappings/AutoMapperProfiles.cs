@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NZ_Walk_WebAPI.Models.Domain_Models;
+using NZ_Walk_WebAPI.Models.Domain;
 using NZ_Walk_WebAPI.Models.DTO;
 
 namespace NZ_Walk_WebAPI.Mappings

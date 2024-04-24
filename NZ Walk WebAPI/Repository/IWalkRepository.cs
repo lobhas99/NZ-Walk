@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NZ_Walk_WebAPI.Models.Domain_Models;
-using System.Globalization;
+﻿using NZ_Walk_WebAPI.Models.Domain;
 
 namespace NZ_Walk_WebAPI.Repository
 {

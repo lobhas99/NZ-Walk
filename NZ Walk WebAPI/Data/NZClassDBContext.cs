@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NZ_Walk_WebAPI.Models.Domain_Models;
+using NZ_Walk_WebAPI.Models.Domain;
 
 namespace NZ_Walk_WebAPI.Data
 {
@@ -15,6 +15,9 @@ namespace NZ_Walk_WebAPI.Data
         public DbSet<Region> Regions { get; set; }
 
         public DbSet<Walk> Walks { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

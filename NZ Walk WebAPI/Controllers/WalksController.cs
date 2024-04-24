@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NZ_Walk_WebAPI.CustomActionFilter;
-using NZ_Walk_WebAPI.Models.Domain_Models;
+using NZ_Walk_WebAPI.Models.Domain;
 using NZ_Walk_WebAPI.Models.DTO;
 using NZ_Walk_WebAPI.Repository;
 
