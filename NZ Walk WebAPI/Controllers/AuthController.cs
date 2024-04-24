@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NZ_Walk_WebAPI.Models.DTO;
+using NZ_Walk_WebAPI.Repository;
 
 namespace NZ_Walk_WebAPI.Controllers
 {
@@ -10,10 +11,12 @@ namespace NZ_Walk_WebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly ITokenRepository tokenRepository;
 
-        public AuthController(UserManager<IdentityUser> userManager)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
             this.userManager = userManager;
+            this.tokenRepository = tokenRepository;
         }
         [HttpPost]
         [Route("Register")]
@@ -24,12 +27,13 @@ namespace NZ_Walk_WebAPI.Controllers
                 UserName = registerRequestDTO.UserName,
                 Email = registerRequestDTO.UserName,
             };
-            var identityResult=await userManager.CreateAsync(identityUser, registerRequestDTO.Password);
-            if(identityResult.Succeeded)
+            var identityResult = await userManager.CreateAsync(identityUser, registerRequestDTO.Password);
+            if (identityResult.Succeeded)
             {
-                if(registerRequestDTO.Roles!=null && registerRequestDTO.Roles.Any()) {
-                identityResult= await userManager.AddToRolesAsync(identityUser, registerRequestDTO.Roles);
-                    if(identityResult.Succeeded )
+                if (registerRequestDTO.Roles != null && registerRequestDTO.Roles.Any())
+                {
+                    identityResult = await userManager.AddToRolesAsync(identityUser, registerRequestDTO.Roles);
+                    if (identityResult.Succeeded)
                     {
                         return Ok("User Was Registered");
                     }
@@ -37,5 +41,31 @@ namespace NZ_Walk_WebAPI.Controllers
             }
             return BadRequest("Something went wrong");
         }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequestDTO)
+        {
+            var user = await userManager.FindByEmailAsync(loginRequestDTO.UserName);
+            if (user != null)
+            {
+                var checkPassword = await userManager.CheckPasswordAsync(user, loginRequestDTO.Password);
+                if (checkPassword)
+                {
+                    var roles = await userManager.GetRolesAsync(user);
+                    if (roles != null)
+                    {
+                       var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
+                        var response = new LoginResponseDTO
+                        {
+                            JwtToken = jwtToken
+                        };
+                        return Ok(response);
+                    }
+                }
+            }
+            return BadRequest("Username or password incorrect.");
+        }
     }
+
 }
